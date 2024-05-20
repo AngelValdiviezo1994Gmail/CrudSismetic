@@ -1,0 +1,22 @@
+﻿label.control-label{
+    font-weight: 800;
+}
+
+.picker__select--month {
+    font-size: 0.70em !important;
+    padding: 0;
+}
+
+.picker__select--year {
+    font-size: 0.70em !important;
+    padding: 0;
+}
+
+/*<!-- DEVEXPRESS STYLES --!>*/
+
+.sen-header-cell dx-datagrid-action  {
+    color: #000;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 17px;
+}
+

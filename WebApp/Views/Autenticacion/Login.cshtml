@@ -1,0 +1,48 @@
+﻿@using WebAppCrudAngelValdiviezo.ViewModel.Auth;
+@model LoginViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewData["Title"] = "SEN - Inicio Sesión";
+}
+
+<div class="authincation-content">
+    <div class="row no-gutters">
+        <div class="col-xl-12">
+            <div class="auth-form">
+                <h3 class="mb-3 font-weight-bolder">Inicia sesión en tu cuenta</h3>
+                <h4 class="mb-4">Ingresa los datos para poder ingresar a tu cuenta.</h4>
+
+                <form asp-action="Login" id="frmLogin">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <div class="form-group">
+                        <label asp-for="Identificacion" class="control-label font-weight-bolder"></label>
+                        <input asp-for="Identificacion" type="text" class="form-control" placeholder="Ingrese usuario" autocomplete="off">
+                        <span asp-validation-for="Identificacion" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="password" class="control-label font-weight-bolder"></label>
+                        <div class="input-group">
+                            <input asp-for="password" class="form-control" placeholder="Ingrese contraseña" type="password" autocomplete="current-password" id="id_password"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-eye" id="togglePassword" style="cursor: pointer;"></i></span></span>
+                        </div>
+                        <span asp-validation-for="password" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="text-center" id="ddBtnLogin">
+                        <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@* 
+@section Scripts{
+    <script src="/js/Auth/Activa.js"></script>
+
+} *@

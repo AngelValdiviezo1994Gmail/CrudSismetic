@@ -1,0 +1,17 @@
+.dx-datagrid .dx-datagrid-header-panel .dx-group-panel-item, .dx-datagrid .dx-datagrid-header-panel .dx-header-filter {
+    outline: 0;
+    color: white;
+}
+
+.dx-tab-text-span-pseudo {
+	display: none;
+}
+
+.dx-toolbar-after {
+    display: none !important;
+}
+
+.dx-header-row > td > .dx-datagrid-text-content:not(.dx-sort-indicator):not(.dx-header-filter-indicator) {
+    max-width: 100%;
+    font-size: 10px;
+}

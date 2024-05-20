@@ -1,0 +1,92 @@
+﻿@using AngelValdiviezoWebApi.Application.Features.Cliente.Dto;
+@using AngelValdiviezoWebApi.Domain.Entities;
+@using WebApp.ViewModel;
+@using System.Reflection;
+@using WebApp.ViewModel;
+@model ResponsePaged<List<ClienteListViewModel>>;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@section BodyHeader{
+    <div class="flex-column w-100">
+        <div class="d-flex flex-row w-100  justify-content-between">            
+            <div class="d-flex flex-row w-100 justify-content-end">
+                <a asp-action="Create" class="btn btn-outline-primary">+ Agregar</a>
+            </div>
+        </div>
+    </div>
+}
+
+@{
+    List<OpcionTablaViewModel> opciones = new()
+    {
+        new OpcionTablaViewModel{
+            Accion = "VerDetalle",
+            ClassBoton = "btn btn-outline-success",
+            PropiedadId  = "Id",
+            Icono = "la la-binoculars"
+        },
+        new OpcionTablaViewModel{
+            Accion = "Edit",
+            ClassBoton = "btn btn-outline-primary",
+            PropiedadId = "Id",
+            Icono = "la la-pencil"
+        },
+        new OpcionTablaViewModel{
+            Accion = "Delete",
+            jAction = "ConfirmarEliminarItem",
+            controlType = ControlTypeEnum.button,
+            ClassBoton = "btn btn-outline-danger",
+            PropiedadId  = "Id",
+            DescItem="ClientNombre",
+            Icono = "la la-trash-o"
+        }
+    };
+}
+
+@await Component.InvokeAsync(
+    "Table",
+    new {
+        datos = Model,
+        opciones = opciones ,
+        mostrarFiltros = true,
+        esOrdenable = true,
+        paginacion = true,
+        mostrarBusqueda = true,
+    })
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        function DeleteItem(id) {
+            $.ajax({
+                type: "POST",
+                data: { id: id },
+                url: GetURL() + "Home/Inactivar",
+
+                success: function (respuesta) {
+                    MensajeGeneral(respuesta.tipoMensaje, respuesta.titulo, respuesta.mensaje, respuesta.botonAceptar, GetURL() + "Home/Index");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    MensajeGeneral("error", "ERROR CONFIRMACIÓN ELIMINAR CLIENTE", "Se presento un error en el consumo del método de eliminación de cliente", "Aceptar");
+                }
+            });
+
+        }
+        function ConfirmarEliminarItem(idItem, nombreItem) {
+            var TipoMensaje = "question"
+                , Titulo = "¿Quieres eliminar el Cliente?"
+                , Mensaje = "El Cliente de nombre " + nombreItem + " será eliminada de forma permanente y no podras recuperar su información"
+                , TextBotonConfirmar = "Confirmar"
+                , TextBotonCancelar = "Cancelar"
+                , FuncionDestino = "DeleteItem(" + idItem + ")"
+
+            MensajeConfirmacion(TipoMensaje, Titulo, Mensaje, TextBotonConfirmar, TextBotonCancelar, FuncionDestino);
+        }
+    </script>
+
+    }

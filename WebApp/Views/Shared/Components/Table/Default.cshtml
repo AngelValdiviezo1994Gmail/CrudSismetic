@@ -1,0 +1,400 @@
+﻿
+@using WebApp.ViewModel;
+@model InformacionTablaViewModel
+@{
+    bool paginado = bool.Parse(ViewData["paginacion"].ToString());
+    bool filtros = bool.Parse(ViewData["MostrarFiltros"].ToString());
+    bool busqueda = ViewData["MostrarBusqueda"] == null ? false : bool.Parse(ViewData["MostrarBusqueda"].ToString());
+}
+
+<div>
+    <form asp-action="Index" method="get" id="table-form">
+        <input type="hidden" id="total-paginas" value="@Model.TotalPaginas" />
+        <input type="hidden" id="input-pagina" value="@Model.Pagina" />
+        <input type="hidden" id="propiedad-orden" value="@(Model.Orden?.PropiedadBusqueda ?? "")" />
+        <input type="hidden" id="tipo-orden" value="@(Model.Orden != null ? Convert.ToInt32(Model.Orden.Orden).ToString() : "")" />
+        <input type="hidden" id="filtros_tabla" name="op" value="" />
+        <div class="basic-form">
+            <div class="form-row">
+                @if (paginado)
+                {
+                    <div class="form-group col-auto">
+                        <label>Mostrar</label>
+                        <div>
+                            <select class="mr-sm-2 form-select-sm" id="select-mostrar">
+                                @{
+                                    if (Model.Cantidad == 10)
+                                    {
+                                        <option value="10" selected>10</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="10">10</option>
+                                    }
+                                    if (Model.Cantidad == 25)
+                                    {
+                                        <option value="25" selected>25</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="25">25</option>
+                                    }
+                                    if (Model.Cantidad == 50)
+                                    {
+                                        <option value="50" selected>50</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="50">50</option>
+                                    }
+                                    if (Model.Cantidad == 100)
+                                    {
+                                        <option value="100" selected>100</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="100">100</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <input type="hidden" id="select-mostrar" value="-1" />
+                }
+                @if (busqueda)
+                {
+                    <div class="form-group col-8">
+                        <label>&nbsp;</label>
+                        <div>
+                            <input class="form-control" placeholder="Ingrese criterio de busqueda" value="@Model.CriterioBusqueda" id="input-busqueda">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-auto">
+                        <label>&nbsp;</label>
+                        <div class="text-right">
+                            <button class="btn btn-primary ml-2" id="btn-busqueda">Buscar</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="table-responsive mt-3">
+            <table class="d-table table table-hover">
+                <thead class="">
+                    <tr class="d-table-row">
+                        <th>
+                            #
+                        </th>
+                        @{
+                            bool ordenable = bool.Parse(ViewData["esOrdenable"].ToString());
+                            foreach (var header in Model.Header.OrderBy(o => o.DisplayOrden))
+                            {
+                                <th class="align-middle d-table-cell">
+                                    <div>
+                                        <span style="cursor: pointer;" class="d-flex flex-row @(ordenable ? "order-column" : "")" data-orden-tipo="@(Model.Orden?.PropiedadBusqueda == @header.OrderColumna ? Convert.ToInt32(Model.Orden.Orden).ToString() : "0")" data-orden-columna="@header.OrderColumna">
+                                            <strong>@header.Descripcion</strong>
+                                            @if (ordenable)
+                                            {
+                                                if (Model.Orden is null)
+                                                {
+                                                    <span class="d-flex flex-column justify-content-center pl-2"> <i class="fa fa-sort color-muted"></i></span>
+                                                }
+                                                else
+                                                {
+                                                    if (Model.Orden.PropiedadBusqueda == @header.OrderColumna)
+                                                    {
+                                                        // switch (Model.Orden.Orden)
+                                                        // {
+                                                        //     case Common.Domain.Enums.OrdenFiltroEnum.ASC:
+                                                        //         <span class="d-flex flex-column justify-content-center pl-2"> <i class="fa fa-sort-amount-asc color-muted"></i></span>
+                                                        //         break;
+                                                        //     case Common.Domain.Enums.OrdenFiltroEnum.DESC:
+                                                        //         <span class="d-flex flex-column justify-content-center pl-2"> <i class="fa fa-sort-amount-desc color-muted"></i></span>
+                                                        //         break;
+                                                        //     case Common.Domain.Enums.OrdenFiltroEnum.NINGUNO:
+                                                        //         <span class="d-flex flex-column justify-content-center pl-2"> <i class="fa fa-sort color-muted"></i></span>
+                                                        //         break;
+                                                        // }
+                                                        <span class="d-flex flex-column justify-content-center pl-2"> <i class="fa fa-sort-amount-asc color-muted"></i></span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="d-flex flex-column justify-content-center pl-2"> <i class="fa fa-sort color-muted"></i></span>
+                                                    }
+                                                }
+                                            }
+                                        </span>
+                                    </div>
+                                </th>
+                            }
+                        }
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int fila = (Model.Pagina * Model.Cantidad) - (Model.Cantidad - 1);
+                        foreach (var item in Model.Data)
+                        {
+                            <tr>
+                                <td>@fila</td>
+                                @{
+                                    foreach (var header in Model.Header.OrderBy(o => o.DisplayOrden))
+                                    {
+                                        <td>
+                                            @item.GetValueOrDefault(header.NombreDato)
+                                        </td>
+                                    }
+
+                                    if (Model.Opciones is { Count: > 0 })
+                                    {
+                                        <td>
+                                            <div class="d-flex" style="gap: .5rem;">
+                                                @foreach (var opcion in Model.Opciones)
+                                                {
+                                                    var propiedad = opcion.PropiedadId.Split(",");
+                                                    var parametros = new List<string>();
+
+                                                    // Iterar sobre las propiedades en el modelo de opción y agregar sus valores a la lista de parámetros
+                                                    var cad = "";
+                                                    foreach (string p in propiedad)
+                                                    {
+                                                        cad += @item.GetValueOrDefault(p) + ",";
+
+                                                    }
+
+                                                    // Unir los valores de los parámetros en una sola cadena separada por comas
+                                                    var parameters = string.Join(",", parametros);
+
+
+                                                    var javaAction = opcion.jAction == null ? "" : opcion.jAction + "(" + cad +
+                                                    "'" + @item.GetValueOrDefault(opcion.DescItem == null ? "" : opcion.DescItem) + "'" + ")";
+                                                    if (opcion.controlType == ControlTypeEnum.link)
+                                                    {
+
+                                                        string queryString = cad.Replace(",", "/");
+                                                        var url = $"{opcion.Accion}/{queryString.Substring(0, queryString.Length - 1)}";
+
+                                                        <a href="@url" class="@opcion.ClassBoton">
+                                                            <i class="@opcion.Icono"></i>
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="@opcion.ClassBoton" onclick="@javaAction;">
+                                                            <i class="@opcion.Icono"></i>
+                                                        </button>
+                                                    }
+                                                }
+                                            </div>
+                                        </td>
+                                    }
+                                }
+                            </tr>
+                            fila++;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        @if (paginado)
+        {
+            <div class="d-flex flex-row justify-content-between mt-3">
+                <p>Mostrando @((Model.Pagina * Model.Cantidad) - (Model.Cantidad - 1)) a @((Model.Pagina * Model.Cantidad) < @Model.TotalElementos ? (Model.Pagina * Model.Cantidad) : @Model.TotalElementos) de @Model.TotalElementos elementos</p>
+                <div class="btn-group mr-2 mb-2 btn-group-sm">
+                    <button type="button" class="btn btn-outline-dark mr-1" id="boton-anterior">Anterior</button>
+                    @for (int i = 1; i <= Model.TotalPaginas; i++)
+                    {
+                        if (i == Model.Pagina)
+                        {
+                            <button type="button" class="btn btn-primary mr-1 page-number" data-page-number="@i">@i</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-outline-dark mr-1 page-number" data-page-number="@i">@i</button>
+                        }
+                    }
+                    <button type="button" class="btn btn-outline-dark mr-1" id="boton-siguiente">Siguiente</button>
+                </div>
+            </div>
+        }
+    </form>
+</div>
+
+<div class="modal fade" id="exampleModalCenter" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const CLASS_ORDEN_DESC = "fa fa-sort-amount-desc color-muted";
+    const CLASS_ORDEN_ASC = "fa fa-sort-amount-asc color-muted";
+    const CLASS_ORDEN_NULL = "fa fa-sort color-muted";
+
+    function actualizarTabla() {
+        document.getElementById("table-form").requestSubmit();
+    }
+
+    function cambioPagina(pagina) {
+        pagina.attributes["data-page-number"]
+        let inputPagina = document.getElementById("input-pagina");
+        inputPagina.value = pagina.attributes["data-page-number"].value;
+        actualizarTabla();
+    }
+
+    function moverPagina(aumento) {
+
+        let totalPaginas = document.getElementById("total-paginas").value;
+        let inputPagina = document.getElementById("input-pagina");
+        let paginaActual = inputPagina.value;
+        if (aumento == 1) {
+            if (paginaActual < totalPaginas) {
+                inputPagina.value = (parseInt(paginaActual) + 1);
+                actualizarTabla();
+            }
+        }
+        else if (aumento == -1) {
+            if (paginaActual > 1) {
+                inputPagina.value = (parseInt(paginaActual) - 1);
+                actualizarTabla();
+            }
+        }
+    }
+
+    function cambiarIconoOrden(tipo, elemento) {
+        if (tipo >= 2) {
+            tipo = 0
+        } else {
+            tipo++;
+        }
+        switch (tipo) {
+            case 0:
+                elemento.className = CLASS_ORDEN_NULL;
+                break;
+            case 1:
+                elemento.className = CLASS_ORDEN_ASC;
+                break;
+            case 2:
+                elemento.className = CLASS_ORDEN_DESC;
+                break;
+        }
+        document.getElementById("tipo-orden").value = tipo;
+        return tipo;
+    }
+
+    function CambiarOrden(elemento) {
+        let ordeActual = elemento.attributes["data-orden-tipo"].value;
+        let columnaActual = elemento.attributes["data-orden-columna"].value;
+        let nuevoOrden = cambiarIconoOrden(ordeActual, elemento.querySelector(".fa"));
+        elemento.attributes["data-orden-tipo"].value = nuevoOrden;
+        document.getElementById("propiedad-orden").value = nuevoOrden == "0" ? "" : columnaActual;
+        actualizarTabla();
+    }
+
+    function ResetOrdenColumnas() {
+        let columnasOrden = document.querySelectorAll(".order-column");
+        columnasOrden.forEach(columna => {
+            columna.querySelector(".fa").className = CLASS_ORDEN_NULL;
+        });
+    }
+
+    function submitFilters(e) {
+        let propiedadOrden = document.getElementById("propiedad-orden").value;
+        let tipoOrden = document.getElementById("tipo-orden").value;
+        let cantidadMostrar = document.getElementById("select-mostrar").value;
+        let pagina = document.getElementById("input-pagina").value;
+        let criterioBusqueda = document.getElementById("input-busqueda").value;
+
+        let datos = {
+            "propiedadOrden": propiedadOrden,
+            "tipoOrden": tipoOrden,
+            "cantidadMostrar": cantidadMostrar,
+            "pagina": pagina,
+            "criterioBusqueda": criterioBusqueda
+        };
+
+        console.log({ "datos": datos });
+
+
+        let paramString = Object.keys(datos).map(function (k) {
+            return encodeURIComponent(k) + '=' + encodeURIComponent(datos[k])
+        }).join('&')
+
+        console.log({ "paramString": paramString });
+
+        //let encondeFiltros = btoa(encodeURIComponent(paramString));
+        console.log(JSON.stringify(datos));
+        let encondeFiltros = btoa(JSON.stringify(datos));
+        console.log({ "encondeFiltros": encondeFiltros });
+        document.getElementById("filtros_tabla").value = encondeFiltros;
+
+        //alert("continuar");
+        //e.preventDefault();
+    }
+
+    function IniciarTabla() {
+
+        let select = document.getElementById("select-mostrar");
+        select.addEventListener("change", function () {
+            actualizarTabla();
+        });
+
+        let paginas = document.querySelectorAll(".page-number");
+        paginas.forEach(pagina => {
+            pagina.addEventListener("click", function () {
+                cambioPagina(pagina);
+            });
+        });
+
+        let botonAnterior = document.getElementById("boton-anterior");
+        if (botonAnterior != undefined) {
+            botonAnterior.addEventListener("click", function () {
+                moverPagina(-1);
+            });
+        }
+
+        let botonSiguiente = document.getElementById("boton-siguiente");
+        if (botonSiguiente != undefined) {
+            botonSiguiente.addEventListener("click", function () {
+                moverPagina(1);
+            });
+        }
+
+        let columnasOrden = document.querySelectorAll(".order-column");
+        columnasOrden.forEach(columna => {
+            columna.addEventListener("click", function () {
+                ResetOrdenColumnas();
+                CambiarOrden(columna);
+            });
+        });
+
+        let formTable = document.getElementById("table-form");
+        formTable.addEventListener('submit', submitFilters);
+
+        let busqueda = document.getElementById("btn-busqueda");
+        busqueda.addEventListener("click", function () {
+            actualizarTabla();
+        });
+    }
+
+    IniciarTabla();
+</script>

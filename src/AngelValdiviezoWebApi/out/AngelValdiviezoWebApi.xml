@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AngelValdiviezoWebApi</name>
+    </assembly>
+    <members>
+        <member name="M:AngelValdiviezoWebApi.Controllers.v1.TokenController.CreateToken(AngelValdiviezoWebApi.Application.Features.Token.Commands.CreateTokenCommand.CreateTokenRequest,System.Threading.CancellationToken)">
+             <summary>
+             Genera un código Token a partir del número de cédula
+             </summary>
+             <param name="request"></param>
+             <param name="cancellationToken"></param>
+             <returns>Retorna registro creado con estructura de TokenType </returns>
+             <remarks>
+             Ejemplo request:
+            
+                 POST /CreateToken
+                 {
+                      "Identificacion": "0920693975",
+                      "password":       "123456",
+                 }
+            
+             </remarks>
+             <response code="200">Retorna el Token se generó correctamente</response>
+             <response code="400">Si el registro no se generó</response>
+        </member>
+        <member name="M:AngelValdiviezoWebApi.Controllers.v1.TokenController.ValidateToken(AngelValdiviezoWebApi.Application.Features.Token.Commands.ValidateTokenCommand.ValidateTokenRequest,System.Threading.CancellationToken)">
+             <summary>
+             Valida el Código Token 
+             </summary>
+             <param name="request"></param>
+             <param name="cancellationToken"></param>
+             <returns>Retorna registro creado con estructura de TokenType </returns>
+             <remarks>
+             Ejemplo request:
+            
+                 POST /ValidateToken
+                 {
+                     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ="
+                 }
+            
+             </remarks>
+             <response code="200">Retorna si el token es válido</response>
+             <response code="400">Si el registro es inválido</response>
+        </member>
+    </members>
+</doc>

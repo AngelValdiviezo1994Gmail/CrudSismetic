@@ -1,0 +1,33 @@
+﻿@model WebApp.ViewModel.ClienteViewModel
+@{
+    ViewData["Title"] = "Cliente Creación";
+    ViewData["Pagina"] = "CRUD Cliente";
+    ViewData["Accion"] = "Crear Cliente";
+}
+
+@section BodyHeader{
+    <h5>Nuevo Cliente</h5>
+}
+
+<div class="card-body">
+    <form enctype="multipart/form-data" asp-action="Create" class="step-form-horizontal">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <partial name="_ClientePartial" />
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="btn-page">
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                    <a asp-action="Index" class="btn btn-light">Cancelar</a>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
+    <meta name="description" content="Edumin - Bootstrap Admin Dashboard" />
+    <meta property="og:title" content="Edumin - Bootstrap Admin Dashboard" />
+    <meta property="og:description" content="Edumin - Bootstrap Admin Dashboard" />
+    <meta property="og:image" content="https://edumin.dexignlab.com/xhtml/social-image.png" />
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- FAVICONS ICON -->
+    <link rel="icon" href="~/xhtml/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/recursos/1. Logo Sen/SVG/Recurso 12.svg" />
+
+    <!-- PAGE TITLE HERE -->
+    <title>@ViewData["Title"]</title>
+
+    <!-- MOBILE SPECIFIC -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- STYLESHEETS -->
+    <link rel="stylesheet" href="~/xhtml/vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link href="~/xhtml/css/style.css" rel="stylesheet">
+    <link href="~/xhtml/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="~/css/site.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/xhtml/css/skin-3.css">
+    <style>
+        .bg-img1 {
+            /* The image used */
+            background-image: url("../recursos/4. Imagenes/bvvcb.jpg");
+            min-height: 1100px;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        .bg-img2 {
+            /* The image used */
+            background-image: url("../recursos/4. Imagenes/DSC_1979.JPG");
+            min-height: 1100px;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        .bg-img3 {
+            /* The image used */
+            background-image: url("../recursos/4. Imagenes/DSC_4829.JPG");
+            min-height: 1100px;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        .img-slide-logos {
+            width: 100%;
+            max-width: var(--max);
+            height: calc(var(--max));
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="h-100">
+
+    <div class="bootstrap-carousel">
+
+        <div data-ride="carousel" class="carousel slide" id="carouselExampleCaptions">
+            
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="bg-img1"></div>
+                </div>
+                <div class="carousel-item">
+                    <div class="bg-img2"></div>
+                </div>
+                <div class="carousel-item">
+                    <div class="bg-img3"></div>
+                </div>
+            </div><a data-slide="prev" href="#carouselExampleCaptions" class="carousel-control-prev">
+                <span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span>
+            </a><a data-slide="next" href="#carouselExampleCaptions" class="carousel-control-next">
+                <span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span>
+            </a>
+
+
+            <div class="card-img-overlay">
+
+                <div class="row ls-container" style="height:0px">
+                    <div class="col-2" style="align-content:center; text-align: center">
+                        <img style="width:80%; margin:50px" src="~/recursos/1. Logo Sen/SVG/Recurso 7.svg" alt="Logo SEN">
+                    </div>
+                    <div class="col-8"> </div>
+                    <div class="col-2" style="align-content:center; text-align: center">
+                        <img style="width:40%; margin:50px" src="~/recursos/2. Logo Armanda/SVG/Recurso 13.svg" alt="Logo armada de colombia">
+                    </div>
+                </div>
+
+                <div class="container" style="padding-top:5%">
+                    <div class="row h-100 d-flex align-items-center justify-content-center">
+                        <div class="col-md-6">
+                            <input type="hidden" id="MensajeConfiguracion" value="@TempData["Message"]" />
+
+                            @RenderBody()
+                            <div class="footer">
+                                <div class="copyright">
+                                    <p>Armada de Colombia © 2022</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row w-100 d-flex align-items-center justify-content-center">
+                        <div class="bootstrap-carousel">
+                            <div data-ride="carousel" class="carousel slide" id="carouselEscuelas">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    <img style="align-content:center; text-align: center;width:90%; object-fit:contain; height:230px;" src="~/recursos/5. Logo escuelas/ENAP.png" alt="SEN ENAP">
+                                                </div>
+                                                <div class="col-sm">
+                                                    <img style="align-content:center; text-align: center;width:90%; object-fit:contain; height:230px;" src="~/recursos/5. Logo escuelas/EFIM.png" alt="SEN EFIM">
+                                                </div>
+                                                <div class="col-sm">
+                                                    <img style="align-content:center; text-align: center;width:90%; object-fit:contain; height:230px;" src="~/recursos/5. Logo escuelas/ENSB.png" alt="SEN ENSUB">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    <img style="align-content:center; text-align: center;width:90%; object-fit:contain; height:230px;" src="~/recursos/5. Logo escuelas/ANEES.png" alt="SEN ANEES">
+                                                </div>
+                                                <div class="col-sm">
+                                                    <img style="align-content:center; text-align: center;width:90%; object-fit:contain; height:230px;" src="~/recursos/5. Logo escuelas/ESCIG.png" alt="SEN ESCIG">
+                                                </div>
+                                                <div class="col-sm">
+                                                    <img style="align-content:center; text-align: center;width:90%; object-fit:contain; height:230px;" src="~/recursos/5. Logo escuelas/ESCAN.png" alt="SEN ESCAN">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    <img style="align-content:center; text-align: center;width:90%; object-fit:contain; height:230px;" src="~/recursos/5. Logo escuelas/CIEAN.png" alt="SEN CIEAN">
+                                                </div>
+                                                <div class="col-sm">
+                                                    <img style="align-content:center; text-align: center;width:90%; object-fit:contain; height:230px;" src="~/recursos/5. Logo escuelas/ESINT.png" alt="SEN ESINT">
+                                                </div>
+                                                <div class="col-sm">
+                                                    <img style="align-content:center; text-align: center;width:90%; object-fit:contain; height:230px;" src="~/recursos/5. Logo escuelas/ESBUC.png" alt="SEN ESBUC">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="carousel-item">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    <img style="align-content:center; text-align: center;width:90%; object-fit:contain; height:230px;" src="~/recursos/5. Logo escuelas/CIEAF.png" alt="SEN CIEAF">
+                                                </div>
+                                                <div class="col-sm">
+                                                    <img style="align-content:center; text-align: center;width:90%; object-fit:contain; height:230px;" src="~/recursos/5. Logo escuelas/ESUP.png" alt="SEN ESUPC">
+                                                </div>
+                                                <div class="col-sm">
+                                                    <img style="align-content:center; text-align: center;width:90%; object-fit:contain; height:230px;" src="~/recursos/5. Logo escuelas/CEPAZ.png" alt="SEN CEPAZ">
+                                                </div>
+                                                <div class="col-sm">
+                                                    <img style="align-content:center; text-align: center;width:90%; object-fit:contain; height:230px;" src="~/recursos/5. Logo escuelas/ESUBC.png" alt="SEN ESUBC">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="~/xhtml/vendor/global/global.min.js"></script>
+    <script src="~/xhtml/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="~/xhtml/js/custom.min.js"></script>
+    <script src="~/xhtml/js/dlabnav-init.js"></script>
+
+    <script src="~/xhtml/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="~/js/sweetalertPersonalizado-init.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/js/siteLogin.js"></script>
+
+
+
+</body>
+</html>

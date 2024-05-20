@@ -1,0 +1,85 @@
+﻿@using WebAppCrudAngelValdiviezo.ViewModel.Auth;
+@model LoginViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewData["Title"] = "SEN - Inicio Sesión";
+}
+
+<div class="authincation-content">
+    <div class="row no-gutters">
+        <div class="col-xl-12">
+            <div class="auth-form">
+                <h3 class="mb-3 font-weight-bolder">Inicia sesión en tu cuenta</h3>
+                <h4 class="mb-4">Ingresa los datos para poder ingresar a tu cuenta.</h4>
+
+                <form asp-action="Login" id="frmLogin">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="usuario" class="control-label font-weight-bolder"></label>
+                        <input asp-for="usuario" type="text" class="form-control" placeholder="Ingrese usuario" autocomplete="off">
+                        <span asp-validation-for="usuario" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="clave" class="control-label font-weight-bolder"></label>
+                        <div class="input-group">
+                            <input asp-for="clave" class="form-control" placeholder="Ingrese contraseña" type="password" autocomplete="current-password" id="id_password"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-eye" id="togglePassword" style="cursor: pointer;"></i></span></span>
+                        </div>
+                        <span asp-validation-for="clave" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-2" id="ddLoginEsc" style="display:none">
+                        <div class="mb-2">
+                            <label asp-for="EscId" class="control-label"></label>
+                            <select asp-for="EscId" asp-items="ViewBag.Escuelas" class="form-control select-custom mb-2" id="ddlEscuelas">
+                            </select>
+
+                            <span asp-validation-for="EscId" class="text-danger mt-2"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="ddLoginTk" style="display:none">
+                        <label asp-for="token" class="control-label font-weight-bolder"> <span class="fst-italic">* Token Enviado a su correo</span></label>
+                        <div class="input-group">
+                            <input asp-for="token" class="form-control" type="number" placeholder="Ingrese Token" autocomplete="off" required>
+                        </div>
+                        <span asp-validation-for="token" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                        <div class="form-group" id="ddlCToken">
+                            <div class="custom-control custom-checkbox ml-1">
+                                <input asp-for="requestToken" type="checkbox" class="custom-control-input" id="t_1">
+                                <label class="custom-control-label" for="t_1">Cuento con un codigo</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <a class="text-primary" asp-action="RecuperarClave">¿Olvidaste tu contraseña?</a>
+                        </div>
+                    </div>
+
+                    <div class="text-center" id="ddFakeBtnLogin" style="display:block">
+                        <button type="button" class="btn btn-primary btn-block">Iniciar sesión</button>
+                    </div>
+
+                    <div class="text-center" id="ddBtnLogin" style="display:none">
+                        <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+                    </div>
+                    <div class="text-center mt-2" id="ddlActiva">
+                        <a asp-action="Activa" class="text-warning">Activa tu cuenta</a>
+                    </div>
+
+                    <div class="text-center mt-2" id="ddlNT" style="display:none;">
+                        <button type="button" class="btn btn-warning btn-block" id="ddlNewT">Enviar Nuevo Token</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@* 
+@section Scripts{
+    <script src="/js/Auth/Activa.js"></script>
+
+} *@

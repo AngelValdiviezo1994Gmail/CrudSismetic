@@ -51,7 +51,7 @@ try
         c.SwaggerDoc("v1", new OpenApiInfo
         {
             Version = "v1",
-            Title = "Clientes - API",
+            Title = "Usuarios - API",
             Description = "Test EndPoints de Angel Valdiviezo",
             Contact = new OpenApiContact
             {

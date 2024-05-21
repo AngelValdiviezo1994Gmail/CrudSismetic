@@ -87,8 +87,10 @@ namespace WebApp.Controllers
 
                 foreach (UsuarioType item in LstUsuarios)
                 {
-                    LstTmp.Add(
-                        new UsuarioListViewModel 
+                    if(item.UsuarioEstado)
+                    {
+                        LstTmp.Add(
+                        new UsuarioListViewModel
                         {
                             CargoId = item.CargoId,
                             UsuarioNombre = item.UsuarioNombre,
@@ -105,6 +107,7 @@ namespace WebApp.Controllers
                             UsuarioModificacion = item.UsuarioModificacion
                         }
                         );
+                    }                    
                 }
                 
                 LstFinal.Data = LstTmp;

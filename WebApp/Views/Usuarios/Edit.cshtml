@@ -1,8 +1,8 @@
-﻿@model WebApp.ViewModel.ClienteViewModel
+﻿@model WebApp.ViewModel.Usuario.UsuarioViewModel
 @{
-    ViewData["Title"] = "SEN - Cliente edición";
-    ViewData["Pagina"] = "CRUD Cliente";
-    ViewData["Accion"] = "Editar Cliente";
+    ViewData["Title"] = "SEN - Usuario edición";
+    ViewData["Pagina"] = "CRUD Usuario";
+    ViewData["Accion"] = "Editar Usuario";
 }
 
 @section BodyHeader{
@@ -12,13 +12,13 @@
 <div class="card-body">
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="ClientId" />
+        <input type="hidden" asp-for="UsuarioId" />
 
-        <partial name="_ClientePartial" />
+        <partial name="_UsuarioPartial" />
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="btn-page">
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
                     <a asp-action="Index" class="btn btn-light">Cancelar</a>
                 </div>
             </div>

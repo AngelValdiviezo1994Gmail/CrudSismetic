@@ -5,19 +5,17 @@ namespace AngelValdiviezoWebApi.Domain.Constant
     {
         public string Puerto { get; }
         public string ApiToken { get; }
-        public string ApiCliente { get; }
-        public string ApiEstCivil { get; }
-        public string ApiGenero { get; }
-        public string ApiTipoCliente { get; }
+        public string ApiUsuario { get; }
+        public string ApiCargo { get; }
+        public string ApiPerfil { get; }
 
         public Conexion()
         {
             this.Puerto = "https://localhost:7203";
             this.ApiToken = "/api/v1/Token/";
-            this.ApiCliente = "/api/v1/Cliente/";
-            this.ApiEstCivil = "/api/v1/EstadoCivil/";
-            this.ApiGenero = "/api/v1/Genero/";
-            this.ApiTipoCliente = "/api/v1/TipoCliente/";
+            this.ApiUsuario = "/api/v1/Usuario/";            
+            this.ApiCargo = "/api/v1/Cargo/";            
+            this.ApiPerfil = "/api/v1/Perfil/";            
         }
     }
 }

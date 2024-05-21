@@ -1,9 +1,9 @@
-﻿@using AngelValdiviezoWebApi.Application.Features.Cliente.Dto;
-@using AngelValdiviezoWebApi.Domain.Entities;
+﻿@using AngelValdiviezoWebApi.Domain.Entities;
 @using WebApp.ViewModel;
 @using System.Reflection;
-@using WebApp.ViewModel;
-@model ResponsePaged<List<ClienteListViewModel>>;
+@using WebApp.ViewModel.Usuario;
+
+@model ResponsePaged<List<UsuarioListViewModel>>;
 
 @{
     ViewData["Title"] = "Home Page";
@@ -41,7 +41,7 @@
             controlType = ControlTypeEnum.button,
             ClassBoton = "btn btn-outline-danger",
             PropiedadId  = "Id",
-            DescItem="ClientNombre",
+            DescItem="UsuarioNombre",
             Icono = "la la-trash-o"
         }
     };
@@ -79,8 +79,8 @@
         }
         function ConfirmarEliminarItem(idItem, nombreItem) {
             var TipoMensaje = "question"
-                , Titulo = "¿Quieres eliminar el Cliente?"
-                , Mensaje = "El Cliente de nombre " + nombreItem + " será eliminada de forma permanente y no podras recuperar su información"
+                , Titulo = "¿Quieres eliminar el Usuario?"
+                , Mensaje = "El Usuario de nombre " + nombreItem + " será eliminada de forma permanente y no podras recuperar su información"
                 , TextBotonConfirmar = "Confirmar"
                 , TextBotonCancelar = "Cancelar"
                 , FuncionDestino = "DeleteItem(" + idItem + ")"

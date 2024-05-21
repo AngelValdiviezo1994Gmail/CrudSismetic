@@ -1,19 +1,19 @@
-﻿@model WebApp.ViewModel.ClienteViewModel
+﻿@model WebApp.ViewModel.Usuario.UsuarioViewModel
 @{
-    ViewData["Title"] = "Cliente Creación";
-    ViewData["Pagina"] = "CRUD Cliente";
-    ViewData["Accion"] = "Crear Cliente";
+    ViewData["Title"] = "Usuario Creación";
+    ViewData["Pagina"] = "CRUD Usuario";
+    ViewData["Accion"] = "Crear Usuario";
 }
 
 @section BodyHeader{
-    <h5>Nuevo Cliente</h5>
+    <h5>Nuevo Usuario</h5>
 }
 
 <div class="card-body">
     <form enctype="multipart/form-data" asp-action="Create" class="step-form-horizontal">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <partial name="_ClientePartial" />
+        <partial name="_UsuarioPartial" />
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="btn-page">

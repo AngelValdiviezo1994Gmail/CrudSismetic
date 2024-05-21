@@ -1,21 +1,15 @@
 ﻿using AngelValdiviezoWebApi.Application.Common.Wrappers;
-using AngelValdiviezoWebApi.Application.Features.Catalogo.EstadoCivil.Dto;
-using AngelValdiviezoWebApi.Application.Features.Catalogo.TipoCliente.Dto;
-using AngelValdiviezoWebApi.Application.Features.Cliente.Dto;
-using AngelValdiviezoWebApi.Application.Features.Genero.Dto;
-using AngelValdiviezoWebApi.Application.Features.Genero.Interfaces;
+using AngelValdiviezoWebApi.Application.Features.Usuario.DTO;
 using AngelValdiviezoWebApi.Domain.Entities;
 using AngelValdiviezoWebApi.Domain.Enums;
-using AngelValdiviezoWebApi.Persistence.Repository.Cliente;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Diagnostics;
-using WebApp.Controllers.Clientes;
+using WebApp.Controllers.Usuarios;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.ViewModel;
-using WebApp.ViewModel;
+using WebApp.ViewModel.Usuario;
 using WebAPP.Filters;
 using static WebAppCrudAngelValdiviezo.Extensions.BaseController;
 
@@ -39,8 +33,8 @@ namespace WebApp.Controllers
 
         public async Task<IActionResult> Index(string? op)
         {
-            ResponsePaged<List<ClienteListViewModel>> LstFinal = new ResponsePaged<List<ClienteListViewModel>>();
-            Cliente_Service OClientService = new Cliente_Service(_httpClient);
+            ResponsePaged<List<UsuarioListViewModel>> LstFinal = new ResponsePaged<List<UsuarioListViewModel>>();
+            Usuario_Service OClientService = new Usuario_Service(_httpClient);
 
             OpcionesTablaViewModel opciones = TableViewHelper.GetParametros(op);
             
@@ -61,56 +55,50 @@ namespace WebApp.Controllers
                 };
             }
 
-            List<ClienteType> LstClientes = new List<ClienteType>();
+            List<UsuarioType> LstUsuarios = new List<UsuarioType>();
 
             string Token = HttpContext.Session.GetString("JwtSesion") ?? string.Empty;
 
-            var response = await OClientService.GetClientes(Token);
+            var response = await OClientService.GetUsuarios(Token);
 
             if (response.IsSuccessStatusCode)
             {
                 var responseData = await response.Content.ReadAsStringAsync();
                 
-                LstClientes = JsonConvert.DeserializeObject<ResponseType<List<ClienteType>>>(responseData).Data;
+                LstUsuarios = JsonConvert.DeserializeObject<ResponseType<List<UsuarioType>>>(responseData).Data;
 
-                if(LstClientes == null)
+                if(LstUsuarios == null)
                 {
-                    LstClientes = new List<ClienteType>();
+                    LstUsuarios = new List<UsuarioType>();
                 }
 
-                var OConvertido = new ResponsePaged<List<ClienteType>>
+                var OConvertido = new ResponsePaged<List<UsuarioType>>
                 {
                     Succeeded = true,
                     Error = string.Empty,
                     ErrorCode = 0,
-                    Data = LstClientes,
-                    Cantidad = LstClientes?.Count ?? 0,
+                    Data = LstUsuarios,
+                    Cantidad = LstUsuarios?.Count ?? 0,
                     Pagina = 1,
-                    TotalElementos = LstClientes?.Count ?? 0,
-                    TotalPaginas = LstClientes != null && LstClientes.Count > 0 ? LstClientes.Count / 5 : 0, 
+                    TotalElementos = LstUsuarios?.Count ?? 0,
+                    TotalPaginas = LstUsuarios != null && LstUsuarios.Count > 0 ? LstUsuarios.Count / 5 : 0, 
                 };
-                List<ClienteListViewModel> LstTmp = new List<ClienteListViewModel>();
+                List<UsuarioListViewModel> LstTmp = new List<UsuarioListViewModel>();
 
-                foreach (ClienteType item in LstClientes)
+                foreach (UsuarioType item in LstUsuarios)
                 {
                     LstTmp.Add(
-                        new ClienteListViewModel 
+                        new UsuarioListViewModel 
                         {
-                            ClientApellido = item.ClientApellido,
-                            ClientDireccion = item.ClientDireccion,
-                            ClientEmail = item.ClientEmail,
-                            ClientEstadoCivilId = item.ClientEstadoCivilId,
-                            ClientFechaNacimiento = item.ClientFechaNacimiento,
-                            ClientGeneroId = item.ClientGeneroId,
-                            ClientId = item.ClientId,
-                            ClientNacionalidad = item.ClientNacionalidad,
-                            ClientNombre = item.ClientNombre,
-                            ClientNumCta = item.ClientNumCta,
-                            ClientNumIdentificacion = item.ClientNumIdentificacion,
-                            ClientProfesion = item.ClientProfesion,
-                            ClientSaldo = item.ClientSaldo,
-                            ClientTelefono = item.ClientTelefono,
-                            ClientTipoId = item.ClientTipoId,
+                            CargoId = item.CargoId,
+                            UsuarioNombre = item.UsuarioNombre,
+                            PerfilId = item.PerfilId,
+                            UsuarioApellido = item.UsuarioApellido,
+                            UsuarioDireccion = item.UsuarioDireccion,
+                            UsuarioEdad = item.UsuarioEdad,
+                            UsuarioEstado = item.UsuarioEstado,
+                            UsuarioFechaNacimiento = item.UsuarioFechaNacimiento,
+                            UsuarioId = item.UsuarioId,
                             FechaCreacion = item.FechaCreacion,
                             FechaModificacion = item.FechaModificacion,
                             UsuarioCreacion = item.UsuarioCreacion,
@@ -127,20 +115,20 @@ namespace WebApp.Controllers
 
         public IActionResult VerDetalle(int? id)
         {
-            HttpContext.Session.SetString("IdClienteDet", id?.ToString() ?? "");
-            return RedirectToAction(nameof(VerDetalle), RemoveController(nameof(ClientesController)));
+            HttpContext.Session.SetString("IdUsuarioDet", id?.ToString() ?? "0");
+            return RedirectToAction(nameof(VerDetalle), RemoveController(nameof(UsuariosController)));
         }
 
         public IActionResult Create()        
         {
-            return RedirectToAction(nameof(Create), RemoveController(nameof(ClientesController)));
+            return RedirectToAction(nameof(Create), RemoveController(nameof(UsuariosController)));
         }
 
         public IActionResult Edit(int? id)
         {
-            HttpContext.Session.SetString("IdCliente", id?.ToString() ?? "");
+            HttpContext.Session.SetString("IdUsuario", id?.ToString() ?? "0");
 
-            return RedirectToAction(nameof(Edit), RemoveController(nameof(ClientesController)));
+            return RedirectToAction(nameof(Edit), RemoveController(nameof(UsuariosController)));
         }
 
         public IActionResult Privacy()
@@ -168,23 +156,23 @@ namespace WebApp.Controllers
                 return Json(new ConfiguracionMensaje
                 {
                     TipoMensaje = TipoMensaje.success.ToString(),
-                    Titulo = "ELIMINACIÓN DE CLIENTE",
-                    Mensaje = $"No se ha elegido un cliente."
+                    Titulo = "ELIMINACIÓN DE USUARIO",
+                    Mensaje = $"No se ha elegido un usuario."
                 });
 
             string Token = HttpContext.Session.GetString("JwtSesion") ?? string.Empty;
 
-            Cliente_Service OClientService = new Cliente_Service(_httpClient);
+            Usuario_Service OClientService = new Usuario_Service(_httpClient);
 
-            var response = await OClientService.DeleteCliente(id, Token);
+            var response = await OClientService.DeleteUsuario(id, Token);
 
             if (response.IsSuccessStatusCode)
             {
                 return Json(new ConfiguracionMensaje
                 {
                     TipoMensaje = TipoMensaje.success.ToString(),
-                    Titulo = "ELIMINACIÓN DE CLIENTE",
-                    Mensaje = $"Cliente fue eliminado con éxito."
+                    Titulo = "ELIMINACIÓN DE USUARIO",
+                    Mensaje = $"Usuario fue eliminado con éxito."
                 });
             }
             else
@@ -192,8 +180,8 @@ namespace WebApp.Controllers
                 return Json(new ConfiguracionMensaje
                 {
                     TipoMensaje = TipoMensaje.error.ToString(),
-                    Titulo = "ELIMINACIÓN DE CLIENTE",
-                    Mensaje = $"Error al eliminar el cliente"
+                    Titulo = "ELIMINACIÓN DE USUARIO",
+                    Mensaje = $"Error al eliminar el usuario"
                 });
             }
 

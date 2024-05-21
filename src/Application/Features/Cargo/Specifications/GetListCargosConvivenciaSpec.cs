@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AngelValdiviezoWebApi.Domain.Entities.Catalogo.Cargo;
+using Ardalis.Specification;
 
 namespace AngelValdiviezoWebApi.Application.Features.Cargo.Specifications
 {
-    internal class GetListCargosConvivenciaSpec
+    public class GetListCargosConvivenciaSpec : Specification<CargoModels>
     {
+        public GetListCargosConvivenciaSpec()
+        {
+            Query.OrderBy(x => x.CargoId);
+        }
     }
 }

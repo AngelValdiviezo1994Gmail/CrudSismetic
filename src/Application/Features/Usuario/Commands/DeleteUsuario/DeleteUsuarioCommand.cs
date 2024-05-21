@@ -1,21 +1,21 @@
 ﻿using AngelValdiviezoWebApi.Application.Common.Exceptions;
 using AngelValdiviezoWebApi.Application.Common.Wrappers;
-using AngelValdiviezoWebApi.Application.Features.Cliente.Interfaces;
-using AngelValdiviezoWebApi.Domain.Entities.Cliente;
+using AngelValdiviezoWebApi.Application.Features.Usuario.Interfaces;
+using AngelValdiviezoWebApi.Domain.Entities.Usuario;
 using MediatR;
 
 namespace AngelValdiviezoWebApi.Application.Features.Usuario.Commands.DeleteUsuario
 {
 
-    public record DeleteUsuarioCommand(int IdCliente) : IRequest<ResponseType<string>>;
+    public record DeleteUsuarioCommand(int IdUsuario) : IRequest<ResponseType<string>>;
 
     public class DeleteUsuarioCommandQuery : IRequestHandler<DeleteUsuarioCommand, ResponseType<string>>
     {
 
-        private readonly IClientes _repositoryAcontecimiento;
+        private readonly IUsuario _repositoryAcontecimiento;
 
         public DeleteUsuarioCommandQuery(
-           IClientes acontecimientos)
+           IUsuario acontecimientos)
         {
             _repositoryAcontecimiento = acontecimientos;
         }
@@ -24,12 +24,12 @@ namespace AngelValdiviezoWebApi.Application.Features.Usuario.Commands.DeleteUsua
         {
             try
             {
-                ClienteModels acontecimientos = new ClienteModels()
+                UsuarioModels acontecimientos = new UsuarioModels()
                 {
-                    ClientId = request.IdCliente
+                    UsuarioId = request.IdUsuario
                 };
 
-                var objData1 = await _repositoryAcontecimiento.DeleteCliente(acontecimientos, cancellationToken);
+                var objData1 = await _repositoryAcontecimiento.DeleteUsuario(acontecimientos, cancellationToken);
 
 
 

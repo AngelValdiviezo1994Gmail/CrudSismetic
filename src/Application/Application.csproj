@@ -40,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Catalogo\" />
     <Folder Include="Features\Token\" />
   </ItemGroup>
 

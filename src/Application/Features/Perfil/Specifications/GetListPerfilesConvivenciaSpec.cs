@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AngelValdiviezoWebApi.Domain.Entities.Perfil;
+using Ardalis.Specification;
 
 namespace AngelValdiviezoWebApi.Application.Features.Perfil.Specifications
 {
-    internal class GetListPerfilesConvivenciaSpec
+    public class GetListPerfilesConvivenciaSpec : Specification<PerfilModels>
     {
+        public GetListPerfilesConvivenciaSpec()
+        {
+            Query.OrderBy(x => x.PerfilId);
+        }
     }
 }

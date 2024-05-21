@@ -29,7 +29,6 @@ namespace AngelValdiviezoWebApi.Application.Features.Usuario.Query
             {
                 var objUsuario = await _repositoryAsync.FirstOrDefaultAsync(new UsuarioByIdSpec(request.id), cancellationToken);
 
-                //return new ResponseType<UsuarioType>() { Data = _mapper.Map<UsuarioType>(objUsuario), Succeeded = true, StatusCode = "000", Message = CodeMessageResponse.GetMessageByCode("000") };
                 var response = ProcesoObjetoUsuario(objUsuario);
 
                 return new ResponseType<UsuarioType>() { Data = response, Message = CodeMessageResponse.GetMessageByCode("000"), StatusCode = "000", Succeeded = true };

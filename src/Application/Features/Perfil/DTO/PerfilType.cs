@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AngelValdiviezoWebApi.Application.Features.Perfil.DTO
+﻿namespace AngelValdiviezoWebApi.Application.Features.Perfil.DTO
 {
-    internal class PerfilType
+    public class PerfilType
     {
+        public int PerfilId { get; set; }
+
+        public string PerfilNombre { get; set; }
+
+        public string? UsuarioCreacion { get; set; }
+
+        public DateTime? FechaCreacion { get; set; }
+
+        public string? UsuarioModificacion { get; set; }
+
+        public DateTime? FechaModificacion { get; set; }
     }
 }

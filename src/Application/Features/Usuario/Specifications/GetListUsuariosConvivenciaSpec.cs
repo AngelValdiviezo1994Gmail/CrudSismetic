@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AngelValdiviezoWebApi.Domain.Entities.Usuario;
+using Ardalis.Specification;
 
 namespace AngelValdiviezoWebApi.Application.Features.Usuario.Specifications
 {
-    internal class GetListUsuariosConvivenciaSpec
+    public class GetListUsuariosConvivenciaSpec : Specification<UsuarioModels>
     {
+        public GetListUsuariosConvivenciaSpec()
+        {
+            Query.OrderBy(x => x.UsuarioId);
+        }
     }
 }

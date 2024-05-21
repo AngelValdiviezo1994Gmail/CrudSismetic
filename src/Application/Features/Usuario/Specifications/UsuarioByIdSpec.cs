@@ -7,8 +7,7 @@ namespace AngelValdiviezoWebApi.Application.Features.Usuario.Specifications
     {
         public UsuarioByIdSpec(int id)
         {
-            Query.Where(x => x.UsuarioId == id)
-                .Include(x => x.UsuarioId);
+            Query.Where(x => x.UsuarioId == id);
         }
     }
 }

@@ -1,14 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace AngelValdiviezoWebApi.Domain.Entities.Cargo
+namespace AngelValdiviezoWebApi.Domain.Entities.Catalogo.Cargo
 {
     [Table("tblCargoSismetic", Schema = "dbo")]
     public class CargoModels
     {
         [Column("idCargo", Order = 0, TypeName = "int")]
         [Key]
-        public int CargotId { get; set; }
+        public int CargoId { get; set; }
 
         [Column("nombreCargo", Order = 1, TypeName = "nvarchar")]
         public string CargoNombre { get; set; }

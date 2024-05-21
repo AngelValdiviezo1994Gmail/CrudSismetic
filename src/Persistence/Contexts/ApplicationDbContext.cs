@@ -1,8 +1,9 @@
 ﻿
-using AngelValdiviezoWebApi.Domain.Entities.Catalogo.EstadoCivil;
-using AngelValdiviezoWebApi.Domain.Entities.Catalogo.TipoCliente;
+using AngelValdiviezoWebApi.Domain.Entities.Catalogo.Cargo;
 using AngelValdiviezoWebApi.Domain.Entities.Cliente;
 using AngelValdiviezoWebApi.Domain.Entities.Genero;
+using AngelValdiviezoWebApi.Domain.Entities.Perfil;
+using AngelValdiviezoWebApi.Domain.Entities.Usuario;
 using Microsoft.EntityFrameworkCore;
 namespace AngelValdiviezoWebApi.Persistence.Contexts;
 
@@ -13,10 +14,10 @@ public class ApplicationDbContext : DbContext
         ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
     }
     
-    public DbSet<ClienteModels> clienteModels => Set<ClienteModels>();
-    public DbSet<GeneroModels> generoModels => Set<GeneroModels>();
-    public DbSet<TipoClienteModels> tipoClienteModels => Set<TipoClienteModels>();
-    public DbSet<EstadoCivilModels> EstadoCivilModels => Set<EstadoCivilModels>();
+    public DbSet<ClienteModels> clienteModels => Set<ClienteModels>();    
+    public DbSet<CargoModels> cargoModels => Set<CargoModels>();
+    public DbSet<PerfilModels> perfilModels => Set<PerfilModels>();
+    public DbSet<UsuarioModels> usuarioModels => Set<UsuarioModels>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

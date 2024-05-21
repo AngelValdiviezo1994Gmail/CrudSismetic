@@ -3,7 +3,7 @@ namespace AngelValdiviezoWebApi.Application.Features.Cargo.DTO
 {
     public class CargoType
     {
-        public int CargotId { get; set; }
+        public int CargoId { get; set; }
 
         public string CargoNombre { get; set; }
 

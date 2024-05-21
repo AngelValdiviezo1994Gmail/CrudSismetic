@@ -26,7 +26,15 @@ namespace AngelValdiviezoWebApi.Persistence.Repository.Usuario
 
                 UsuarioModels objAcont = new()
                 {
-                    
+                    CargoId = Request.CargoId,
+                    PerfilId = Request.PerfilId,
+                    UsuarioApellido = Request.UsuarioApellido,
+                    UsuarioDireccion = Request.UsuarioDireccion,
+                    UsuarioEdad = Request.UsuarioEdad,
+                    UsuarioEstado = Request.UsuarioEstado,
+                    UsuarioFechaNacimiento = Request.UsuarioFechaNacimiento,
+                    UsuarioId = Request.UsuarioId,
+                    UsuarioNombre = Request.UsuarioNombre,
                     FechaCreacion = Request.FechaCreacion,
                     FechaModificacion = Request.FechaModificacion,
                     UsuarioCreacion = Request.UsuarioCreacion,
